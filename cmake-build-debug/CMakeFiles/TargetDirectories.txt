@@ -1,0 +1,3 @@
+D:/C++ Projects/assignment 4/logingit/cmake-build-debug/CMakeFiles/logingit.dir
+D:/C++ Projects/assignment 4/logingit/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/C++ Projects/assignment 4/logingit/cmake-build-debug/CMakeFiles/rebuild_cache.dir
