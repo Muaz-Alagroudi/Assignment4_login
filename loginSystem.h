@@ -9,8 +9,6 @@
 using namespace std;
 //function prototypes
 
-const string OTP = "29834";
-
 //registration
 void addInfo(string, string);
 
@@ -50,6 +48,8 @@ struct user {
     string password;
     string number;
 };
+
+string generateOTP();
 
 bool sendEmail();
 

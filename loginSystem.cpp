@@ -411,7 +411,20 @@ void login(int code) {
     }
 }
 
+string generateOTP()
+{
+    srand(time(NULL));
+    string numbers = "0123456789";
+    string OTP;
+    for (int i=1; i<=6; i++)
+        OTP.push_back(numbers[rand() % numbers.length()]);
+
+    return(OTP);
+}
+
 bool sendEmail(){
+    string OTP;
+    OTP = generateOTP();
     string command, email, otpEnter, emailToCheck;
     cout << "enter your email : ";
     cin >> email;
