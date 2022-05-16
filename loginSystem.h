@@ -9,6 +9,8 @@
 using namespace std;
 //function prototypes
 
+const string OTP = "29834";
+
 //registration
 void addInfo(string, string);
 
@@ -39,9 +41,8 @@ void displayRules();
 void registerNew();
 
 //login
-void login();
 
-void changePass();
+void login(int = 0);
 
 struct user {
     string name;
@@ -49,5 +50,7 @@ struct user {
     string password;
     string number;
 };
+
+bool sendEmail();
 
 #endif //LOGINGIT_LOGINSYSTEM_H

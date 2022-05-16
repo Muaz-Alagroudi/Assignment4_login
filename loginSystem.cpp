@@ -1,6 +1,8 @@
 //
 // Created by muala on 5/13/2022.
 //
+
+#include <stdlib.h>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -13,7 +15,6 @@ using namespace std;
 //************************
 //function definitions  ||
 //************************
-
 
 bool checkEmail(string email) {
     string emailInFile;
@@ -298,7 +299,7 @@ void registerNew() {
 
 //log in
 
-void login() {
+void login(int code) {
     cout << '\n';
     string username, usernameNewline, password, nameFile, emailFile, passwordFile, numberFile;
     int counter = 0;
@@ -331,6 +332,9 @@ void login() {
         newUser.password = encrypt(passwordFile);
         newUser.number = numberFile;
 
+        if (code == 1){
+            goto account;
+        }
         cout << "password : ";
         password = enterPassword2();
         if (password == passwordFile) {
@@ -351,8 +355,9 @@ void login() {
         return;
     } else {
         cout << "\n>>> lOGIN SUCCESSFUL ! <<<\n";
+
         account :
-        cout << "Your information : \n";
+        cout << "\nYour information : \n";
         cout << "username : " << newUser.name << endl;
         cout << "email    : " << newUser.email << endl;
         cout << "number   : " << newUser.number << endl;
@@ -403,5 +408,34 @@ void login() {
             newPassFile << newUser.number << '\n';
             newPassFile.close();
         }
+    }
+}
+
+bool sendEmail(){
+    string command, email, otpEnter, emailToCheck;
+    cout << "enter your email : ";
+    cin >> email;
+    cin.ignore();
+    if (!checkEmail(email)){
+        cout << "\nWait a few moments..." << endl;
+        command = "powershell -command \"$EmailFrom = \"\"\"fcai.cu.eg@gmail.com\"\"\";$EmailTo = \"\"\"" + email + "\"\"\";$Subject = \"\"\"OTP\"\"\";$Body = \"\"\"OTP : " + OTP + "\"\"\";$SMTPServer = \"\"\"smtp.gmail.com\"\"\";$SMTPClient = New-Object Net.Mail.SmtpClient($SmtpServer, 587);$SMTPClient.EnableSsl = $true;$SMTPClient.Credentials = New-Object System.Net.NetworkCredential(\"\"\"fcai.cu.eg@gmail.com\"\"\", \"\"\"tseupwajnritmznu\"\"\");$SMTPClient.Send($EmailFrom, $EmailTo, $Subject, $Body);\"";
+        const char *cmd;
+        cmd = command.c_str();
+        system(cmd);
+
+        otp :
+        cout << "\nEnter the OTP : ";
+        cin >> otpEnter;
+        cin.ignore();
+        if (otpEnter == OTP){
+            cout << "\n>>> SUCCESS <<<\n";
+            return true;
+        } else {
+            cout << "\nwrong OTP, please try again" << endl;
+            goto otp;
+        }
+    } else {
+        cout << "\nThe email you entered is not registered\n";
+        return false;
     }
 }
